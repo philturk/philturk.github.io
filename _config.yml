@@ -33,7 +33,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://philturk.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: coreatrium
 github_username:  philturk
-google_analytics: G-5DM0XZ1ZF0
+google_analytics: UA-181856979-1
 
 # Build settings
 theme: minima
