@@ -1,4 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-11-01T16:12:11-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Tips, Tricks, and Tidbits in Data Science</title><subtitle>The Center for Outcomes Research and Evaluation (CORE) partners with investigators  across Atrium Health to generate real-world evidence that advances the delivery of  high-quality, patient-centered care.</subtitle><author><name>Philip Turk, MS, PhD</name></author><entry><title type="html">The Complete Data Scientist</title><link href="http://localhost:4000/core/post/2020/10/31/post01.html" rel="alternate" type="text/html" title="The Complete Data Scientist" /><published>2020-10-31T16:00:00-04:00</published><updated>2020-10-31T16:00:00-04:00</updated><id>http://localhost:4000/core/post/2020/10/31/post01</id><content type="html" xml:base="http://localhost:4000/core/post/2020/10/31/post01.html">&lt;p&gt;Nowadays, because of high market demand and because of the rise of artificial intelligence (AI), many people are calling themselves a “data scientist”. But what does this job title actually mean? Many articles on the internet do a great job giving a comprehensive checklist of computational skills necessary to be a data scientist, but to me this view is too narrow. My approach in this short article is to give a brief overview of three general areas that I feel constitute a complete data scientist. They are not listed in any preferential order.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2021-02-20T15:18:39-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Tips, Tricks, and Tidbits in Data Science</title><subtitle>The Center for Outcomes Research and Evaluation (CORE) partners with investigators  across Atrium Health to generate real-world evidence that advances the delivery of  high-quality, patient-centered care.</subtitle><author><name>Philip Turk, MS, PhD</name></author><entry><title type="html">When Your Distribution Looks All Skewed Up</title><link href="http://localhost:4000/core/post/2021/02/20/post02.html" rel="alternate" type="text/html" title="When Your Distribution Looks All Skewed Up" /><published>2021-02-20T11:00:00-05:00</published><updated>2021-02-20T11:00:00-05:00</updated><id>http://localhost:4000/core/post/2021/02/20/post02</id><content type="html" xml:base="http://localhost:4000/core/post/2021/02/20/post02.html">&lt;p&gt;&lt;strong&gt;Skewness&lt;/strong&gt; is a measure of the degree of asymmetry of a distribution of numbers.  Let’s take a look at an approach to quantify it.&lt;/p&gt;
+
+&lt;p&gt;Consider a population of size \(N\) in which the values of the random variable $Y$ are $y_1, y_2, \ldots, y_N$. The “centered population moment of order 3” is defined as:&lt;/p&gt;
+
+\[\nonumber M_3 = \frac{1}{N}\sum_{i = 1}^{N}(y_i - \mu)^3\]
+
+&lt;p&gt;where $\mu$ is the population mean.  $M_3$ reflects the skewness of the population distribution.&lt;/p&gt;
+
+&lt;p&gt;The (standardized) population coefficient of skewness is denoted by $\kappa_3$ (“kappa sub 3”) and defined by:&lt;/p&gt;
+
+\[\nonumber \kappa_3 = \frac{M_3}{\sigma^3}\]
+
+&lt;p&gt;where $\sigma$ is the population standard deviation.  By construction, this measure is not affected either by the mean of the population or by the standard deviation of the population. In symmetric distributions, $\kappa_3 = 0$. In right-skewed distributions, $\kappa_3 &amp;gt; 0$ and in left-skewed distributions, $\kappa_3 &amp;lt; 0$.   As a rule of thumb, we have:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;If $\kappa_3$ is less than -1 or greater than 1, then the distribution is highly skewed;&lt;/li&gt;
+  &lt;li&gt;If $\kappa_3$ is between -1 and -0.5 or between 0.5 and 1, then the distribution is moderately skewed;&lt;/li&gt;
+  &lt;li&gt;If $\kappa_3$ is between -0.5 and 0.5, then the distribution is approximately symmetric.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;$\kappa_3$ can be estimated using sample data. Simply replace the population mean $\mu$ with the sample mean $\bar{Y}$, and the population standard deviation $\sigma$ with the sample standard deviation $S$ (using the sample size $n$, not $n - 1$, in the denominator).  The estimate is denoted as $\widehat{\kappa}_3$, the sample coefficient of skewness.  Please note that a more formal procedure can be developed to test whether $\widehat{\kappa}_3$ is significantly different from 0.&lt;/p&gt;
+
+&lt;p&gt;To compute $\widehat{\kappa}_3$ is easy to do in R.  One can code their own function or use a package.  The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;skewness()&lt;/code&gt; function in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;EnvStats&lt;/code&gt; package computes the sample coefficient of skewness as described above by invoking the so-called “moment” option.  For example, consider the following toy data set:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; library(EnvStats)
+&amp;gt; my_data &amp;lt;- c(1,1,1,1,1,2,2,2,2,3,3,3,4,4,5)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To compute $\widehat{\kappa}_3$, we do:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; skewness(my_data, method = &quot;moment&quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Following is a histogram displaying the data:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/plots/bpost02-plot-1.png&quot; alt=&quot;My helpful screenshot&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We obtain $\widehat{\kappa}_3 = 0.59$.  By the rules of thumb, we have moderate right-skew.&lt;/p&gt;
+
+&lt;p&gt;By using the statistic $\widehat{\kappa}_3$, we can look for a departure from symmetry, how the departure manifests itself, and the strength of the departure.  It provides some quantitative rigor as a companion to a histogram and therefore can be a useful tool in practice. For example, I have used this in a marketing setting where there was interest to see how sales managers differed with respect to rating assessments of their teams. Perhaps you will find an application in your future, too.&lt;/p&gt;</content><author><name>Philip Turk, MS, PhD</name></author><category term="CORE" /><category term="post" /><summary type="html">Skewness is a measure of the degree of asymmetry of a distribution of numbers. Let’s take a look at an approach to quantify it.</summary></entry><entry><title type="html">The Complete Data Scientist</title><link href="http://localhost:4000/core/post/2020/10/31/post01.html" rel="alternate" type="text/html" title="The Complete Data Scientist" /><published>2020-10-31T16:00:00-04:00</published><updated>2020-10-31T16:00:00-04:00</updated><id>http://localhost:4000/core/post/2020/10/31/post01</id><content type="html" xml:base="http://localhost:4000/core/post/2020/10/31/post01.html">&lt;p&gt;Nowadays, because of high market demand and because of the rise of artificial intelligence (AI), many people are calling themselves a “data scientist”. But what does this job title actually mean? Many articles on the internet do a great job giving a comprehensive checklist of computational skills necessary to be a data scientist, but to me this view is too narrow. My approach in this short article is to give a brief overview of three general areas that I feel constitute a complete data scientist. They are not listed in any preferential order.&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
