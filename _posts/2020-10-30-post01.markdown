@@ -14,7 +14,7 @@ Nowadays, because of high market demand and because of the rise of artificial in
     - R, especially the `tidyverse` packages, and the ability to use R Markdown. 
     - Python, and the ability to use JupyterLab.  There are many popular libraries you can learn as you go (e.g., NumPy, Pandas, Matplotlib, etc.).
     - The ability to use a Git + GitHub workflow.
-    - The ability to be able to move around one of The Big Three big cloud computing platforms (e.g., AWS).  This also includes a basic familiarity with Spark (Databricks is a nice  platform).
+    - The ability to be able to move around one of The Big Three cloud computing platforms (e.g., AWS).  This also includes a basic familiarity with Spark (Databricks is a nice  platform).
     - If you are going to do a lot of data engineering, then knowing how to use SQL is important.    
 <br />
 
